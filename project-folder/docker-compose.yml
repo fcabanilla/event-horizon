@@ -1,0 +1,37 @@
+version: '3'
+services:
+  mongodb:
+    image: mongo
+    container_name: mongodb
+    restart: always
+    ports:
+      - 27017:27017
+    volumes:
+      - mongodb-data:/data/db
+
+  # express:
+  #   build:
+  #     context: ./express-app
+  #     dockerfile: Dockerfile
+  #   container_name: express
+  #   restart: always
+  #   ports:
+  #     - 3000:3000
+  #   environment:
+  #     - MONGO_URL=mongodb://mongodb:27017/eventosdb
+  #   depends_on:
+  #     - mongodb
+
+  # angular:
+  #   build:
+  #     context: ./angular-app
+  #     dockerfile: Dockerfile
+  #   container_name: angular
+  #   restart: always
+  #   ports:
+  #     - 4200:4200
+  #   depends_on:
+  #     - express
+
+volumes:
+  mongodb-data:

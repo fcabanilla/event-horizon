@@ -1,0 +1,14 @@
+# Fdb version 4
+["pdflatex"] 1685215794 "c:/Users/feder/project/Event Horizon/event-horizon-api/docs/diagrams/useCasesAuth.tex" "build/useCasesAuth.pdf" "useCasesAuth" 1685215795 2
+  "build/useCasesAuth.aux" 1685215795 8 a94a2480d3289e625eea47cd1b285758 "pdflatex"
+  "c:/Users/feder/project/Event Horizon/event-horizon-api/docs/diagrams/useCasesAuth.tex" 1685215794 1251 83d57746bf647b92597847ccbedb1882 ""
+  "c:/texlive/2023/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def" 1683001582 29940 9473d58112bc8a88f5505b823a053dde ""
+  "c:/texlive/2023/texmf-dist/web2c/texmf.cnf" 1682998926 40967 d940221f8762fd5848760382d97d1226 ""
+  "c:/texlive/2023/texmf-var/web2c/pdftex/pdflatex.fmt" 1683004581 7887293 9c46723d94b2985a70ed216f0120593b ""
+  "c:/texlive/2023/texmf.cnf" 1683004494 713 e69b156964470283e0530f5060668171 ""
+  "useCasesAuth.tex" 1685215794 1251 83d57746bf647b92597847ccbedb1882 ""
+  (generated)
+  "build/useCasesAuth.aux"
+  "build/useCasesAuth.log"
+  "build/useCasesAuth.pdf"
+  (rewritten before read)

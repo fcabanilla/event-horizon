@@ -1,0 +1,93 @@
+\documentclass[a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage[margin=2.5cm]{geometry}
+\usepackage{standalone}
+
+\title{Etapa de Requerimientos: Sistema de Gestión de Eventos}
+\author{Federico Cabanilla ft. ChatGPT}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\section{Visión del Producto}
+El sistema de gestión de eventos es una plataforma que permitirá a los usuarios registrarse, crear, visualizar y administrar eventos. Facilitará la interacción entre los asistentes a eventos y los organizadores, creando un espacio unificado para la administración de eventos.
+
+\section{Identificación de Stakeholders}
+Los stakeholders para este proyecto incluyen:
+\begin{itemize}
+    \item Usuarios finales: Asistentes a eventos y organizadores de eventos.
+    \item Desarrolladores: Equipo responsable de la implementación de la API.
+    \item Administradores de sistemas: Encargados de mantener la infraestructura de la API.
+\end{itemize}
+
+\section{Definiciones, Acrónimos y Abreviaturas}
+\begin{itemize}
+    \item API: Interfaz de Programación de Aplicaciones.
+    \item Usuario: Cualquier persona que utilice la plataforma.
+\end{itemize}
+
+\section{Restricciones de Diseño y Tecnológicas}
+La plataforma se implementará utilizando la pila tecnológica MEAN. Deberá ser compatible con los navegadores web modernos y seguir las mejores prácticas de diseño responsivo.
+
+\section{Requerimientos Funcionales}
+Los requerimientos funcionales del sistema de gestión de eventos incluyen:
+\begin{enumerate}
+    \item Registro de usuarios: Los usuarios pueden registrarse en la plataforma proporcionando nombre, correo electrónico y contraseña.
+    \item Inicio y cierre de sesión: Los usuarios pueden iniciar y cerrar sesión en sus cuentas.
+    \item Creación de eventos: Los usuarios registrados pueden crear eventos con detalles como nombre, descripción, fecha, hora y lugar.
+    \item Visualización de eventos: Los usuarios pueden ver una lista de los próximos eventos y los detalles de cada evento.
+    \item Registro en eventos: Los usuarios registrados pueden registrarse para asistir a un evento.
+    \item Gestión de eventos: Los creadores de eventos pueden editar y eliminar sus propios eventos.
+    \item Visualización de eventos registrados: Los usuarios pueden ver una lista de los eventos a los que se han registrado.
+\end{enumerate}
+
+\section{Requerimientos No Funcionales}
+Los requerimientos no funcionales del sistema de gestión de eventos incluyen:
+\begin{enumerate}
+    \item Seguridad: Las contraseñas de los usuarios se almacenan de manera segura. Las sesiones de los usuarios también son seguras.
+    \item Rendimiento: La aplicación maneja un gran número de usuarios y eventos sin disminuir su rendimiento.
+    \item Disponibilidad: La aplicación está disponible el mayor tiempo posible.
+    \item Usabilidad: La API es fácil de usar para los desarrolladores que la consumen.
+    \item Escalabilidad: La aplicación puede escalar para soportar un aumento en el número de usuarios y eventos.
+\end{enumerate}
+
+\section{Modelado del Sistema}
+
+\subsection{Diagrama de Casos de Uso - Autenticado}
+\input{diagrams/useCasesAuth.tex}
+
+\subsection{Diagrama de Casos de Uso - No Autenticado}
+\input{diagrams/useCasesAuth.tex}
+
+\section{Lista de Historias de Usuario}
+A continuación se presenta una lista de historias de usuario para el sistema de gestión de eventos:
+\begin{itemize}
+    \item Como organizador de eventos, quiero poder crear un nuevo evento para que los usuarios puedan ver y registrarse en él.
+    \item Como usuario registrado, quiero poder ver una lista de eventos próximos para poder decidir en cuáles participar.
+    \item Como usuario registrado, quiero poder registrarme en un evento para confirmar mi asistencia.
+    \item Como organizador de eventos, quiero poder editar la información de un evento existente para mantenerla actualizada.
+    \item Como organizador de eventos, quiero poder eliminar un evento que ya no se llevará a cabo.
+\end{itemize}
+
+\section{Planificación del Proyecto}
+La fase inicial de requerimientos y diseño se espera que dure X semanas. La implementación y pruebas se espera que dure Y semanas. La fecha de lanzamiento prevista es Z.
+
+\section{Análisis de Competencia y Mercado}
+El análisis de competencia y mercado se realizará revisando otras aplicaciones de gestión de eventos existentes para identificar características comunes y áreas de mejora potencial.
+
+\section{Riesgos}
+Los riesgos identificados para este proyecto incluyen la escalabilidad del sistema para manejar un gran número de usuarios y eventos, y la seguridad de los datos de los usuarios.
+
+\section{Validación de Requerimientos}
+La validación de requerimientos se llevará a cabo a través de reuniones y discusiones con los stakeholders para asegurar que los requerimientos capturados satisfacen las necesidades del proyecto.
+
+\section{Priorización de Requerimientos}
+Los requerimientos se priorizarán basándose en su impacto en la funcionalidad básica del sistema, así como en el feedback de los stakeholders.
+
+\section{Definición de Criterios de Aceptación}
+Para cada requerimiento, se definirán criterios de aceptación claros. Por ejemplo, para el requerimiento "Registro de usuarios", un criterio de aceptación podría ser "Un usuario puede llenar un formulario con su nombre, correo electrónico y contraseña, y al hacer clic en 'registrar', se crea una nueva cuenta de usuario en el sistema".
+
+\end{document}

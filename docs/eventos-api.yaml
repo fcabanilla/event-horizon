@@ -1,0 +1,258 @@
+openapi: 3.0.0
+info:
+  title: Sistema de Gestión de Eventos API
+  description: API para administrar eventos y registros
+  version: 1.0.0
+
+servers:
+  - url: http://localhost:8000/api/v1
+    description: Dev
+
+paths:
+  /usuarios:
+    get:
+      summary: Obtener todos los usuarios
+      tags:
+        - Usuarios
+      responses:
+        '200':
+          description: Respuesta exitosa
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Usuario'
+    post:
+      summary: Crear un nuevo usuario
+      tags:
+        - Usuarios
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UsuarioInput'
+      responses:
+        '201':
+          description: Usuario creado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Usuario'
+
+  /usuarios/{usuarioId}:
+    get:
+      summary: Obtener un usuario por su ID
+      tags:
+        - Usuarios
+      parameters:
+        - in: path
+          name: usuarioId
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description: Respuesta exitosa
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Usuario'
+    put:
+      summary: Actualizar un usuario
+      tags:
+        - Usuarios
+      parameters:
+        - in: path
+          name: usuarioId
+          schema:
+            type: string
+          required: true
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UsuarioInput'
+      responses:
+        '200':
+          description: Usuario actualizado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Usuario'
+    delete:
+      summary: Eliminar un usuario
+      tags:
+        - Usuarios
+      parameters:
+        - in: path
+          name: usuarioId
+          schema:
+            type: string
+          required: true
+      responses:
+        '204':
+          description: Usuario eliminado
+
+  /eventos:
+    get:
+      summary: Obtener todos los eventos
+      tags:
+        - Eventos
+      responses:
+        '200':
+          description: Respuesta exitosa
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Evento'
+    post:
+      summary: Crear un nuevo evento
+      tags:
+        - Eventos
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EventoInput'
+      responses:
+        '201':
+          description: Evento creado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Evento'
+
+  /eventos/{eventoId}:
+    get:
+      summary: Obtener un evento por su ID
+      tags:
+        - Eventos
+      parameters:
+        - in: path
+          name: eventoId
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description: Respuesta exitosa
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Evento'
+    put:
+      summary: Actualizar un evento
+      tags:
+        - Eventos
+      parameters:
+        - in: path
+          name: eventoId
+          schema:
+            type: string
+          required: true
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EventoInput'
+      responses:
+        '200':
+          description: Evento actualizado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Evento'
+    delete:
+      summary: Eliminar un evento
+      tags:
+        - Eventos
+      parameters:
+        - in: path
+          name: eventoId
+          schema:
+            type: string
+          required: true
+      responses:
+        '204':
+          description: Evento eliminado
+
+components:
+  schemas:
+    Usuario:
+      type: object
+      properties:
+        id:
+          type: string
+        nombre:
+          type: string
+        correoElectronico:
+          type: string
+        contrasena:
+          type: string
+      required:
+        - nombre
+        - correoElectronico
+        - contrasena
+
+    UsuarioInput:
+      type: object
+      properties:
+        nombre:
+          type: string
+        correoElectronico:
+          type: string
+        contrasena:
+          type: string
+      required:
+        - nombre
+        - correoElectronico
+        - contrasena
+
+    Evento:
+      type: object
+      properties:
+        id:
+          type: string
+        nombre:
+          type: string
+        descripcion:
+          type: string
+        fecha:
+          type: string
+        hora:
+          type: string
+        lugar:
+          type: string
+      required:
+        - nombre
+        - descripcion
+        - fecha
+        - hora
+        - lugar
+
+    EventoInput:
+      type: object
+      properties:
+        nombre:
+          type: string
+        descripcion:
+          type: string
+        fecha:
+          type: string
+        hora:
+          type: string
+        lugar:
+          type: string
+      required:
+        - nombre
+        - descripcion
+        - fecha
+        - hora
+        - lugar

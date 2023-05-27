@@ -1,0 +1,23 @@
+\documentclass{standalone}
+\usepackage{tikz-uml}
+
+\begin{document}
+\begin{tikzpicture}
+  \umlactor[x=0, y=4]{Usuario Anónimo}
+  \begin{umlsystem}[x=0]{Sistema}
+    \umlusecase[x=4, y=8, width=1.8cm]{Iniciar Sesión}
+    \umlusecase[x=4, y=6, width=1.8cm]{Ver eventos públicos}
+    \umlusecase[x=4, y=4, width=1.8cm]{Ver detalles del evento}
+    \umlusecase[x=4, y=2, width=1.8cm]{Registrarse en la aplicación.}
+    \umlusecase[x=4, y=0, width=1.8cm]{Registrarse en evento público.}
+
+  \end{umlsystem}
+
+  \umlassoc{Usuario Anónimo}{usecase-1}
+  \umlassoc{Usuario Anónimo}{usecase-2}
+  \umlassoc{Usuario Anónimo}{usecase-3}
+  \umlassoc{Usuario Anónimo}{usecase-4}
+  \umlassoc{Usuario Anónimo}{usecase-5}
+
+\end{tikzpicture}
+\end{document}

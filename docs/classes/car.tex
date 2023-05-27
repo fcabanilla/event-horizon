@@ -1,0 +1,51 @@
+\documentclass{article}
+\usepackage{tikz-uml}
+
+\begin{document}
+
+\begin{tikzpicture}
+\umlclass[type=abstract]{Person}{
+  -name: string \\
+  -email: string
+}{
+  +getName(): string \\
+  +getEmail(): string \\
+  +setName(name: string): void \\
+  +setEmail(email: string): void
+}
+
+\umlclass[y=-4]{User}{
+}{
+}
+
+\umlclass[x=8,y=-4]{Organizer}{
+}{
+}
+
+\umlinherit{User}{Person}
+\umlinherit{Organizer}{Person}
+
+\umlclass[y=-8]{Event}{
+  -name: string \\
+  -location: string \\
+  -date: date \\
+  -time: time \\
+  -description: string
+}{
+  +getName(): string \\
+  +getLocation(): string \\
+  +getDate(): date \\
+  +getTime(): time \\
+  +getDescription(): string \\
+  +setName(name: string): void \\
+  +setLocation(location: string): void \\
+  +setDate(date: date): void \\
+  +setTime(time: time): void \\
+  +setDescription(description: string): void
+}
+
+\umlassoc[mult1=*,mult2=*]{Event}{User}
+\umlassoc[mult1=1,mult2=*]{Event}{Organizer}
+\end{tikzpicture}
+
+\end{document}
