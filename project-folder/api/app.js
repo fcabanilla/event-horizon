@@ -1,61 +1,85 @@
+// app.js
+
+/***************************************
+ ********* IMPORT SECTION START ********
+ ***************************************/
+
 const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
-const dotenv = require('dotenv');
 const path = require('path');
 const morgan = require('morgan');
 const rfs = require('rotating-file-stream');
 
-dotenv.config({ path: path.resolve(__dirname, 'config.env') });
+const { config, api } = require('./config');  // import config from config.js file
+
+/***************************************
+ ********* CONFIG SECTION START ********
+ ***************************************/
+
+console.debug('Config:', config);
+console.debug('Api:', api);
 
 const app = express();
 
 const accessLogStream = rfs.createStream((time, index) => {
     if (time) {
-        // Rotar el archivo de log cada día
         return `log-${time.getFullYear()}${time.getMonth()}${time.getDate()}-${index}.log`;
     } else {
-        // Para el primer archivo de log
         return `log-${Date.now()}.log`;
     }
 }, {
-    path: path.join(__dirname, 'logs'), // la carpeta donde se almacenarán los logs
-    size: '10M', // rotar el archivo cada 10 Megabytes escritos
-    interval: '1d', // rotar el archivo diariamente
-    compress: 'gzip' // comprimir los archivos rotados
+    path: path.join(__dirname, 'logs'),
+    size: '10M',
+    interval: '1d',
+    compress: 'gzip'
 });
 
 app.use(morgan('combined', { stream: accessLogStream }));
 
-app.use(cors());
+app.use(cors({ origin: config.corsOrigin }));  // use config.corsOrigin
 
 app.use(express.json());
 
-// Middleware para configurar cabeceras HTTP
 app.use((req, res, next) => {
-    res.header('Access-Control-Allow-Origin', '*');
     res.header('Access-Control-Allow-Headers', 'Authorization, X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Allow-Request-Method');
     res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
     res.header('Allow', 'GET, POST, PUT, DELETE');
     next();
 });
 
-// Importar las rutas
+/***************************************
+ ********* ROUTE SECTION START *********
+ ***************************************/
+
 const userRoutes = require('./routes/user');
 const eventRoutes = require('./routes/event');
-// Añade las rutas que necesites aquí
 
-// Montar las rutas en la aplicación
-app.use('/api/v1/users', userRoutes);
-app.use('/api/v1/events', eventRoutes);
-// Añade las rutas que necesites aquí
+app.use(api.apiPrefix + '/' + api.apiVersion + '/users', userRoutes);
+app.use(api.apiPrefix + '/' + api.apiVersion + '/events', eventRoutes);
+
+/***************************************
+ ********* ERROR SECTION START *********
+ ***************************************/
+
+app.use((err, req, res, next) => {
+    console.error(err); // Imprime el error en la consola
+    // También puedes guardar el error en un archivo de registro
+
+    res.status(500).json({ error: 'Internal Server Error' });
+});
+
+/***************************************
+ ********* DB SECTION START ************
+ ***************************************/
 
 mongoose.set('strictQuery', false);
 
-// Conexión a la base de datos MongoDB
 mongoose.connect(process.env.DB_CONNECTION, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
+    // user: process.env.DB_USER,
+    // pass: process.env.DB_PASS
 })
     .then(() => {
         console.log('Conexión exitosa a la base de datos');
