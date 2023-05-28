@@ -18,8 +18,8 @@ app.use(cors());
 app.use(express.json());
 
 // Comentar las líneas que importan rutas y modelos que aún no están listos
-// app.use('/api/v1/user', require('./routes/user'));
-app.use('/api/v1/event', require('./routes/event'));
+app.use('/api/v1/users', require('./routes/user'));
+app.use('/api/v1/events', require('./routes/event'));
 
 mongoose.set('strictQuery', false);
 

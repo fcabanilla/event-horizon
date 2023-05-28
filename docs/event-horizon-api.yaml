@@ -1,258 +1,268 @@
 openapi: 3.0.0
 info:
-  title: Sistema de Gestión de Eventos API
-  description: API para administrar eventos y registros
+  title: Event Management System API
+  description: API para gestionar eventos y registros de usuarios.
   version: 1.0.0
-
 servers:
   - url: http://localhost:8000/api/v1
-    description: Dev
-
+    description: Local Development Server
 paths:
-  /usuarios:
+  /users:
     get:
       summary: Obtener todos los usuarios
       tags:
-        - Usuarios
+        - Users
       responses:
         '200':
-          description: Respuesta exitosa
+          description: Lista de usuarios
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Usuario'
+                  $ref: '#/components/schemas/User'
     post:
       summary: Crear un nuevo usuario
       tags:
-        - Usuarios
+        - Users
       requestBody:
         required: true
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/UsuarioInput'
+              $ref: '#/components/schemas/UserInput'
       responses:
         '201':
-          description: Usuario creado
+          description: Usuario creado con éxito
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Usuario'
+                $ref: '#/components/schemas/User'
 
-  /usuarios/{usuarioId}:
+  /users/{userId}:
     get:
-      summary: Obtener un usuario por su ID
+      summary: Obtener detalles de un usuario por ID
       tags:
-        - Usuarios
+        - Users
       parameters:
         - in: path
-          name: usuarioId
+          name: userId
+          required: true
           schema:
             type: string
-          required: true
+            format: uuid
       responses:
         '200':
-          description: Respuesta exitosa
+          description: Detalles del usuario
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Usuario'
+                $ref: '#/components/schemas/User'
     put:
-      summary: Actualizar un usuario
+      summary: Actualizar un usuario existente
       tags:
-        - Usuarios
+        - Users
       parameters:
         - in: path
-          name: usuarioId
+          name: userId
+          required: true
           schema:
             type: string
-          required: true
+            format: uuid
       requestBody:
         required: true
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/UsuarioInput'
+              $ref: '#/components/schemas/UserInput'
       responses:
         '200':
-          description: Usuario actualizado
+          description: Usuario actualizado con éxito
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Usuario'
+                $ref: '#/components/schemas/User'
     delete:
       summary: Eliminar un usuario
       tags:
-        - Usuarios
+        - Users
       parameters:
         - in: path
-          name: usuarioId
+          name: userId
+          required: true
           schema:
             type: string
-          required: true
+            format: uuid
       responses:
         '204':
-          description: Usuario eliminado
+          description: Usuario eliminado con éxito
 
-  /eventos:
+  /events:
     get:
       summary: Obtener todos los eventos
       tags:
-        - Eventos
+        - Events
       responses:
         '200':
-          description: Respuesta exitosa
+          description: Lista de eventos
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Evento'
+                  $ref: '#/components/schemas/Event'
     post:
       summary: Crear un nuevo evento
       tags:
-        - Eventos
+        - Events
       requestBody:
         required: true
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/EventoInput'
+              $ref: '#/components/schemas/EventInput'
       responses:
         '201':
-          description: Evento creado
+          description: Evento creado con éxito
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Evento'
+                $ref: '#/components/schemas/Event'
 
-  /eventos/{eventoId}:
+  /events/{eventId}:
     get:
-      summary: Obtener un evento por su ID
+      summary: Obtener detalles de un evento por ID
       tags:
-        - Eventos
+        - Events
       parameters:
         - in: path
-          name: eventoId
+          name: eventId
+          required: true
           schema:
             type: string
-          required: true
+            format: uuid
       responses:
         '200':
-          description: Respuesta exitosa
+          description: Detalles del evento
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Evento'
+                $ref: '#/components/schemas/Event'
     put:
-      summary: Actualizar un evento
+      summary: Actualizar un evento existente
       tags:
-        - Eventos
+        - Events
       parameters:
         - in: path
-          name: eventoId
+          name: eventId
+          required: true
           schema:
             type: string
-          required: true
+            format: uuid
       requestBody:
         required: true
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/EventoInput'
+              $ref: '#/components/schemas/EventInput'
       responses:
         '200':
-          description: Evento actualizado
+          description: Evento actualizado con éxito
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Evento'
+                $ref: '#/components/schemas/Event'
     delete:
       summary: Eliminar un evento
       tags:
-        - Eventos
+        - Events
       parameters:
         - in: path
-          name: eventoId
+          name: eventId
+          required: true
           schema:
             type: string
-          required: true
+            format: uuid
       responses:
         '204':
-          description: Evento eliminado
+          description: Evento eliminado con éxito
 
 components:
   schemas:
-    Usuario:
+    User:
       type: object
       properties:
         id:
           type: string
-        nombre:
+          format: uuid
+        name:
           type: string
-        correoElectronico:
+        email:
           type: string
-        contrasena:
-          type: string
+          format: email
       required:
-        - nombre
-        - correoElectronico
-        - contrasena
+        - name
+        - email
 
-    UsuarioInput:
+    UserInput:
       type: object
       properties:
-        nombre:
+        name:
           type: string
-        correoElectronico:
+        email:
           type: string
-        contrasena:
+          format: email
+        password:
           type: string
+          format: password
       required:
-        - nombre
-        - correoElectronico
-        - contrasena
+        - name
+        - email
+        - password
 
-    Evento:
+    Event:
       type: object
       properties:
         id:
           type: string
-        nombre:
+          format: uuid
+        name:
           type: string
-        descripcion:
+        description:
           type: string
-        fecha:
+        date:
           type: string
-        hora:
+          format: date
+        time:
           type: string
-        lugar:
+          format: time
+        place:
           type: string
       required:
-        - nombre
-        - descripcion
-        - fecha
-        - hora
-        - lugar
+        - name
+        - description
+        - date
+        - time
+        - place
 
-    EventoInput:
+    EventInput:
       type: object
       properties:
-        nombre:
+        name:
           type: string
-        descripcion:
+        description:
           type: string
-        fecha:
+        date:
           type: string
-        hora:
+          format: date
+        time:
           type: string
-        lugar:
+          format: time
+        place:
           type: string
       required:
-        - nombre
-        - descripcion
-        - fecha
-        - hora
-        - lugar
+        - name
+        - description
+        - date
+        - time
+        - place
