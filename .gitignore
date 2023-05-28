@@ -1,0 +1,25 @@
+# Ignorar node_modules en cualquier lugar del proyecto
+**/node_modules/
+api/node_modules/
+
+# Ignorar .env ya que puede contener secretos
+**/.env
+
+# Ignorar archivos de log
+**/*.log
+
+# Ignorar los archivos y directorios de LaTeX
+**/*.aux
+**/*.bbl
+**/*.blg
+**/*.pdf
+**/*.dvi
+**/*.ps
+**/*.lof
+**/*.lot
+**/*.fls
+**/*.out
+**/*.toc
+**/*.fdb_latexmk
+**/*.synctex.gz
+**/*.synctex(busy)
