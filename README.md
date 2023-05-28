@@ -13,8 +13,8 @@ Este proyecto está construido con Express.js y se conecta a una base de datos M
 1. Clona el repositorio a tu máquina local:
 
 ```bash
-git clone URL_DEL_REPOSITORIO
-```
+# Clonar el repositorio
+git clone https://github.com/fcabanilla/event-horizon
 
 2. Navega al directorio del proyecto:
 
