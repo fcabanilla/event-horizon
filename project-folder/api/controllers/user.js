@@ -4,6 +4,7 @@ const User = require('../models/user');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const { config } = require('../config');
+
 const getAllUsers = (req, res) => {
 
     User.find()
@@ -24,13 +25,11 @@ const createUser = (req, res) => {
             return user.save();
         })
         .then(savedUser => {
-            // Generar token JWT con la información del usuario
-            const token = jwt.sign({ userId: savedUser._id }, config.secretKey, { expiresIn: config.tokenExpiration });
-            res.status(201).json({ user: savedUser, token });
+            console.info({ user: savedUser })
+            res.status(201).json({ user: savedUser });
         })
         .catch(error => {
             console.error(error); // Imprime el error en la consola
-            
             res.status(500).json({
                 error: 'Error creating user',
                 message: error.message,
@@ -38,7 +37,6 @@ const createUser = (req, res) => {
             });
         });
 };
-
 
 const login = (req, res) => {
     const { email, password } = req.body;
