@@ -1,29 +1,70 @@
-// Obtener todos los usuarios
+const User = require('../models/user');
+
 const getAllUsers = (req, res) => {
-    res.send('OK');
+    User.find()
+        .then(users => {
+            res.json(users);
+        })
+        .catch(error => {
+            res.status(500).json({ error: 'Error retrieving users' });
+        });
 };
 
-// Crear un usuario
 const createUser = (req, res) => {
-    res.send('OK');
+    const { name, email, password } = req.body;
+    const user = new User({ name, email, password });
+    user.save()
+        .then(savedUser => {
+            res.status(201).json(savedUser); // Envía una respuesta de éxito con el código de estado 201 (Created)
+        })
+        .catch(error => {
+            res.status(500).json({ error: 'Error creating user' }); // Envía una respuesta de error con el código de estado 500 (Internal Server Error)
+        });
 };
 
-// Obtener un usuario por ID
 const getUserById = (req, res) => {
-    res.send('OK');
+    const { id } = req.params;
+    User.findById(id)
+        .then(user => {
+            if (!user) {
+                return res.status(404).json({ error: 'User not found' });
+            }
+            res.json(user);
+        })
+        .catch(error => {
+            res.status(500).json({ error: 'Error retrieving user' });
+        });
 };
 
-// Actualizar un usuario
 const updateUser = (req, res) => {
-    res.send('OK');
+    const { id } = req.params;
+    const { name, email } = req.body;
+    User.findByIdAndUpdate(id, { name, email }, { new: true })
+        .then(updatedUser => {
+            if (!updatedUser) {
+                return res.status(404).json({ error: 'User not found' });
+            }
+            res.json(updatedUser);
+        })
+        .catch(error => {
+            res.status(500).json({ error: 'Error updating user' });
+        });
 };
 
-// Eliminar un usuario
 const deleteUser = (req, res) => {
-    res.send('OK');
+    const { id } = req.params;
+    User.findByIdAndRemove(id)
+        .then(deletedUser => {
+            if (!deletedUser) {
+                return res.status(404).json({ error: 'User not found' });
+            }
+            res.json({ message: 'User deleted successfully' });
+        })
+        .catch(error => {
+            res.status(500).json({ error: 'Error deleting user' });
+        });
 };
 
-// Exportar todas las funciones del controlador
 module.exports = {
     getAllUsers,
     createUser,

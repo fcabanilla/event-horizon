@@ -1,0 +1,2 @@
+::1 - - [28/May/2023:03:02:29 +0000] "POST /api/v1/users HTTP/1.1" 201 203 "-" "PostmanRuntime/7.32.2"
+::1 - - [28/May/2023:03:02:41 +0000] "POST /api/v1/users HTTP/1.1" 201 191 "-" "PostmanRuntime/7.32.2"
