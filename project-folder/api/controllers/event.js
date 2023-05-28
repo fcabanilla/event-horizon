@@ -1,29 +1,73 @@
-// Obtener todos los eventos
-const getAllEvents = (req, res) => {
-    res.send('OK');
+const Event = require('../models/event');
+
+const getAllEvents = async (req, res) => {
+    try {
+        const events = await Event.find();
+        res.status(200).json(events);
+    } catch (error) {
+        res.status(500).json({ error: 'Error retrieving events' });
+    }
 };
 
-// Crear un evento
-const createEvent = (req, res) => {
-    res.send('OK');
+const createEvent = async (req, res) => {
+    try {
+        const { name, description, date, time, place } = req.body;
+
+        // Validar el formato del horario utilizando expresiones regulares
+        const timePattern = /(\d{2}:\d{2}:\d{2})/;
+        const extractedTime = time.match(timePattern);
+        if (!extractedTime) {
+            return res.status(400).json({ error: 'Invalid time format. Please provide time in HH:MM:SS format.' });
+        }
+
+        const event = new Event({ name, description, date, time: extractedTime[1], place });
+        const savedEvent = await event.save();
+        res.status(201).json(savedEvent);
+    } catch (error) {
+        res.status(500).json({ error: 'Error creating event' });
+    }
 };
 
-// Obtener un evento por ID
-const getEventById = (req, res) => {
-    res.send('OK');
+
+const getEventById = async (req, res) => {
+    const { eventId } = req.params;
+    try {
+        const event = await Event.findById(eventId);
+        if (!event) {
+            return res.status(404).json({ error: 'Event not found' });
+        }
+        res.status(200).json(event);
+    } catch (error) {
+        res.status(500).json({ error: 'Error retrieving event' });
+    }
 };
 
-// Actualizar un evento
-const updateEvent = (req, res) => {
-    res.send('OK');
+const updateEvent = async (req, res) => {
+    const { eventId } = req.params;
+    try {
+        const updatedEvent = await Event.findByIdAndUpdate(eventId, req.body, { new: true });
+        if (!updatedEvent) {
+            return res.status(404).json({ error: 'Event not found' });
+        }
+        res.status(200).json(updatedEvent);
+    } catch (error) {
+        res.status(500).json({ error: 'Error updating event' });
+    }
 };
 
-// Eliminar un evento
-const deleteEvent = (req, res) => {
-    res.send('OK');
+const deleteEvent = async (req, res) => {
+    const { eventId } = req.params;
+    try {
+        const deletedEvent = await Event.findByIdAndRemove(eventId);
+        if (!deletedEvent) {
+            return res.status(404).json({ error: 'Event not found' });
+        }
+        res.status(204).json({ message: 'Event deleted successfully' });
+    } catch (error) {
+        res.status(500).json({ error: 'Error deleting event' });
+    }
 };
 
-// Exportar todas las funciones del controlador
 module.exports = {
     getAllEvents,
     createEvent,

@@ -23,8 +23,8 @@ const createUser = (req, res) => {
 };
 
 const getUserById = (req, res) => {
-    const { id } = req.params;
-    User.findById(id)
+    const { userId } = req.params;
+    User.findById(userId)
         .then(user => {
             if (!user) {
                 return res.status(404).json({ error: 'User not found' });
@@ -37,9 +37,9 @@ const getUserById = (req, res) => {
 };
 
 const updateUser = (req, res) => {
-    const { id } = req.params;
+    const { userId } = req.params;
     const { name, email } = req.body;
-    User.findByIdAndUpdate(id, { name, email }, { new: true })
+    User.findByIdAndUpdate(userId, { name, email }, { new: true })
         .then(updatedUser => {
             if (!updatedUser) {
                 return res.status(404).json({ error: 'User not found' });
@@ -52,8 +52,8 @@ const updateUser = (req, res) => {
 };
 
 const deleteUser = (req, res) => {
-    const { id } = req.params;
-    User.findByIdAndRemove(id)
+    const { userId } = req.params;
+    User.findByIdAndRemove(userId)
         .then(deletedUser => {
             if (!deletedUser) {
                 return res.status(404).json({ error: 'User not found' });

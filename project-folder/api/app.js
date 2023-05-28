@@ -25,22 +25,30 @@ const accessLogStream = rfs.createStream((time, index) => {
     compress: 'gzip' // comprimir los archivos rotados
 });
 
-// Configurar morgan para usar el stream de archivo
 app.use(morgan('combined', { stream: accessLogStream }));
 
-// Middleware para habilitar CORS
 app.use(cors());
 
-// Parsear el cuerpo de las solicitudes como JSON
 app.use(express.json());
+
+// Middleware para configurar cabeceras HTTP
+app.use((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Headers', 'Authorization, X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Allow-Request-Method');
+    res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
+    res.header('Allow', 'GET, POST, PUT, DELETE');
+    next();
+});
 
 // Importar las rutas
 const userRoutes = require('./routes/user');
 const eventRoutes = require('./routes/event');
+// Añade las rutas que necesites aquí
 
-// Usar las rutas
+// Montar las rutas en la aplicación
 app.use('/api/v1/users', userRoutes);
 app.use('/api/v1/events', eventRoutes);
+// Añade las rutas que necesites aquí
 
 mongoose.set('strictQuery', false);
 
