@@ -1,54 +1,69 @@
-# Backend del sistema de gestión de eventos
+# Mi Proyecto Node.js
 
-Este es el backend para el sistema de gestión de eventos. Este proyecto es una API RESTful construida con Node.js, Express y MongoDB.
+Este proyecto está construido con Express.js y se conecta a una base de datos MongoDB.
 
-## Prerequisitos
+## Requisitos previos
 
-Deberá tener Node.js y npm instalados en su máquina. Además, deberá tener una instancia de MongoDB a la que pueda conectarse.
+- Node.js
+- npm
+- MongoDB
 
 ## Instalación
 
+1. Clona el repositorio a tu máquina local:
+
 ```bash
-# Clonar el repositorio
-git clone https://github.com/your-repository-url
+git clone URL_DEL_REPOSITORIO
+```
 
-# Entrar en el directorio del proyecto
-cd backend
+2. Navega al directorio del proyecto:
 
-# Instalar las dependencias
+```bash
+cd NOMBRE_DEL_DIRECTORIO
+```
+
+3. Instala las dependencias del proyecto:
+
+```bash
 npm install
 ```
 
-## Uso
-
-Este proyecto incluye los siguientes scripts npm:
+4. Crea un archivo `.env` en el directorio raíz del proyecto. Este archivo debe contener las variables de entorno necesarias para el proyecto. Por ejemplo:
 
 ```bash
-# Iniciar el servidor para producción
-npm start
-
-# Iniciar el servidor para desarrollo (con nodemon para recarga automática)
-npm run dev
+DB_CONNECTION=mongodb://localhost:27017/mydatabase
+PORT=8000
 ```
 
-El servidor se ejecutará en http://localhost:8000.
+Reemplaza los valores de ejemplo con tus propias configuraciones.
 
-## API Endpoints
+## Ejecución
 
-Esta API proporciona los siguientes endpoints, de acuerdo a la definición Swagger:
+Para iniciar el servidor, corre el siguiente comando:
 
-- GET /api/v1/users: obtener todos los usuarios
-- POST /api/v1/users: crear un nuevo usuario
-- GET /api/v1/users/{userId}: obtener un usuario específico por ID
-- PUT /api/v1/users/{userId}: actualizar un usuario específico por ID
-- DELETE /api/v1/users/{userId}: eliminar un usuario específico por ID
+```bash
+npm start
+```
 
-- GET /api/v1/events: obtener todos los eventos
-- POST /api/v1/events: crear un nuevo evento
-- GET /api/v1/events/{eventId}: obtener un evento específico por ID
-- PUT /api/v1/events/{eventId}: actualizar un evento específico por ID
-- DELETE /api/v1/events/{eventId}: eliminar un evento específico por ID
+Esto iniciará el servidor en el puerto definido en el archivo `.env`. Si no se especificó ningún puerto, el servidor se iniciará en el puerto 8000.
 
-## Licencia
+Puedes acceder al servidor visitando http://localhost:8000 en tu navegador.
 
-Este proyecto está licenciado bajo la Licencia MIT - vea el archivo [LICENSE.md](LICENSE.md) para más detalles.
+## Pruebas
+
+Para ejecutar las pruebas, corre el siguiente comando:
+
+```bash
+npm test
+```
+
+## Estructura del Proyecto
+
+El proyecto está dividido en dos archivos principales: `app.js` e `index.js`.
+
+- `app.js`: Este archivo configura y exporta la aplicación Express, establece la conexión con la base de datos MongoDB y configura los middleware y rutas necesarios.
+
+- `index.js`: Este archivo importa la aplicación desde `app.js` y lanza el servidor.
+
+Todas las rutas de la API se encuentran en la carpeta `routes`.
+
