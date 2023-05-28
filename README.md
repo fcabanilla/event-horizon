@@ -10,7 +10,7 @@ Deberá tener Node.js y npm instalados en su máquina. Además, deberá tener un
 
 ```bash
 # Clonar el repositorio
-git clone https://github.com/your-repository-url
+git clone [https://github.com/your-repository-url](https://github.com/fcabanilla/event-horizon)
 
 # Entrar en el directorio del proyecto
 cd backend
